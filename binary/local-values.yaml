@@ -1,0 +1,59 @@
+configuration:
+  database:
+    username: postgres
+    password: postgres
+    host: 192.168.178.7 #Change to hostname
+    dbname: flyte
+  storage:
+    type: minio
+    metadataContainer: flyte
+    userDataContainer: flyte
+    provider: s3
+    providerConfig:
+      s3:
+        region: "us-east-1" #Irrelevant for local but still needed
+        authType: "accesskey"
+        endpoint: "http://little-guy:9000"
+        accessKey: "minio"
+        secretKey: "miniostorage"
+        disableSSL: "true"
+        secure: "false"
+  
+  #inlineSecretRef: flyte-binary-inline-config-secret  
+  inline:
+    plugins:
+      k8s:
+        inject-finalizer: true
+        default-env-vars:
+          - FLYTE_AWS_ENDPOINT: "http://little-guy:9000"
+          - FLYTE_AWS_ACCESS_KEY_ID: "minio"
+          - FLYTE_AWS_SECRET_ACCESS_KEY: "miniostorage"
+    task_resources:
+      defaults: 
+        cpu: 1000m
+        memory: 500Mi #change default requested resources and limits to fit your needs
+      limits:
+        cpu: 2000m
+        memory: 2000Mi
+    storage:
+      cache:
+        max_size_mbs: 100
+        target_gc_percent: 100
+
+  # ingress Configure ingress for Flyte
+ingress:
+  create: true
+  host: cluster.local
+  ingressClassName: public
+  separateGrpcIngress: true
+  tls:
+    enabled: true
+    secretName: tls-secret
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    kubernetes.io/ingress.class: public
+  separateGrpcIngressAnnotations:
+    nginx.ingress.kubernetes.io/backend-protocol: GRPC
+
+serviceAccount:
+  create: true
