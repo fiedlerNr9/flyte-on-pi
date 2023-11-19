@@ -1,3 +1,4 @@
+![flyte-on-pi](./assets/flyte-on-pi.png)
 # flyte-on-pi
 
 ## Setting up raspberry pi with ubuntu server image
