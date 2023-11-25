@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: public
+  name: grafa-ingress
+  namespace: observability
+spec:
+  rules:
+  - host: flyte.logs
+  - http:
+      paths:
+      - path: /
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: kube-prom-stack-grafana
+            port:
+              number: 80
