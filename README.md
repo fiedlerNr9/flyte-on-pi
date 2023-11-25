@@ -62,7 +62,8 @@ admin:
   insecureSkipVerify: false
   caCertFilePath: /Users/janfiedler/Documents/flyte/flyte-on-pi/flyte.local.cer
 ```
-
+### Accessing grafana logs
+- `kubectl port-forward -n observability service/kube-prom-stack-grafana 3000:80 --address 0.0.0.0`
 
 ## Next TO DOS
 - logs grafana?
