@@ -1,4 +1,12 @@
 apiVersion: v1
+kind: Namespace
+metadata:
+  name: flyte
+  labels:
+    name: flyte
+
+---
+apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: postgresql-pvc
