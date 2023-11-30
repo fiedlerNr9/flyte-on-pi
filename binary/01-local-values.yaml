@@ -5,7 +5,7 @@ configuration:
   database:
     username: postgres
     password: postgres
-    host: postgres.flyte.svc.cluster.local
+    host: postgres.flyte
     dbname: flyte
   storage:
     type: minio
@@ -46,7 +46,6 @@ configuration:
 ingress:
   create: true
   host: flyte.local
-  ingressClassName: public
   separateGrpcIngress: true
   commonAnnotations:
     kubernetes.io/ingress.class: public
