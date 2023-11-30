@@ -4,7 +4,7 @@ configuration:
     level: 10
   database:
     username: postgres
-    password: postgres
+    password: postgres.svc.cluster.local 
     host: postgres.flyte
     dbname: flyte
   storage:
